@@ -34,6 +34,7 @@
   --color-background: #fff;
   --color-fonts: #000000;
   --color-notes-background: #f3f5f8;
+  --color-addingBtn: #5f5ac9;
 }
 
 /* *------------------ Typography -------------------* */
@@ -130,11 +131,17 @@ a {
 @media screen and (min-width: 1000px) {
   .header__bottom .icon {
     width: 30px;
+    height: 50px;
     padding: 4px 4px 4px 10px;
+  }
+
+  .header__bottom input {
+    flex-grow: 1;
+    padding: 1rem 0.5rem;
   }
 }
 
-/* ------------------------ Note Section ------------------------------ */
+/* *------------------------ Note Section ------------------------------* */
 
 .notes-container {
   display: grid;
@@ -203,5 +210,40 @@ a {
     padding: 0.1rem;
     width: 25px;
     height: 25px;
+  }
+}
+
+/* *------------------------- Adding Note Btn Section -------------------------* */
+
+.adding-notes-btn {
+  display: flex;
+  justify-content: end;
+}
+
+.add__btn {
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  background-color: var(--color-addingBtn);
+  position: absolute;
+  bottom: 30px;
+}
+
+@media screen and (min-width: 500px) {
+  .add__btn {
+    padding: 1rem;
+    width: 70px;
+    height: 70px;
+    bottom: 40px;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .add__btn {
+    width: 80px;
+    height: 80px;
+    bottom: 50px;
   }
 }
