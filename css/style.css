@@ -18,6 +18,7 @@
 
 .container {
   margin: 0rem 1rem;
+  padding: 1rem 1rem;
 }
 
 @media screen and (min-width: 1600px) {
@@ -48,11 +49,13 @@ h1 {
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 p {
-  font-size: 1.8rem;
+  font-size: 1rem;
+  font-weight: 300;
 }
 
 input,
@@ -63,22 +66,22 @@ a {
 @media screen and (min-width: 1000px) {
   h1 {
     font-size: 2.5rem;
-    font-weight: 500;
   }
 
   h2 {
-    font-size: 2.5rem;
+    font-size: 1.4rem;
+    font-weight: 500;
   }
 
   p {
-    font-size: 2.3rem;
+    font-size: 1.2rem;
+    font-weight: 300;
   }
 }
 
 /* *-------------------- Header -------------------- */
-
 .header {
-  padding: 2rem;
+  padding-top: 2rem;
 }
 
 .header__top {
@@ -124,10 +127,81 @@ a {
   border-radius: 0 5px 5px 0;
   outline: none;
 }
-
 @media screen and (min-width: 1000px) {
   .header__bottom .icon {
     width: 30px;
     padding: 4px 4px 4px 10px;
+  }
+}
+
+/* ------------------------ Note Section ------------------------------ */
+
+.notes-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1.5rem;
+}
+
+.note__self {
+  padding: 1rem;
+  background-color: var(--color-notes-background);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.note__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 0.5rem;
+}
+
+.note__header__date {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.note__header__date p {
+  font-size: 1rem;
+}
+
+.note__header__edit {
+  cursor: pointer;
+  padding: 0.1rem;
+  width: 20px;
+  height: 20px;
+}
+
+.note__text h2 {
+  margin-bottom: 0.8rem;
+}
+
+.note__update {
+  margin: 2rem 0rem 1rem 0rem;
+  display: flex;
+  justify-content: end;
+}
+
+@media screen and (min-width: 500px) {
+  .notes-container {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 1.5rem;
+    column-gap: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .notes-container {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 1.5rem;
+    column-gap: 1.5rem;
+  }
+
+  .note__header__edit {
+    padding: 0.1rem;
+    width: 25px;
+    height: 25px;
   }
 }
