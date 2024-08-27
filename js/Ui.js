@@ -4,9 +4,13 @@ export default class Ui {
     this.notes = data; // Getting the data and storing it in notes
     this.root = root; // Setting the rout
     this.addToDom(this.notes); // Adding notes to the DOMs
+    this.searchNote();
 
     const addBtn = this.root.querySelector(".adding-notes-btn"); // Selecting the add button (purple button)
     addBtn.addEventListener("click", this.addToNotes.bind(this));
+
+    const addBtnModal = this.root.querySelector(".notes-modal__buttons__add"); // Getting the add buttun in the modal
+    addBtnModal.addEventListener("click", this.createNewNote.bind(this));
   }
 
   addToDom(data) {
@@ -17,6 +21,14 @@ export default class Ui {
       result += note_html;
     });
     this.root.querySelector(".notes-container").innerHTML = result; // Updating the DOM
+
+    const trashIcons = [...this.root.querySelectorAll(".note__header__trash")]; // Selecting the trash Icons
+    trashIcons.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        const id = Number(e.target.dataset.id); // Getting the trash icon id
+        this.deleteNote(id);
+      });
+    });
   }
 
   _createNoteHTML(note) {
@@ -26,13 +38,26 @@ export default class Ui {
         <div class="note__header">
           <div class="note__header__date">
             <div class="note__date__icon">X</div>
-            <p>${note.updated}</p>
+            <p>${new Date(note.updated).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}</p>
           </div>
-          <img
-            src="./assets/images/8666681_edit_icon.svg"
-            alt="edit icon"
-            class="note__header__edit"
-          />
+          <div class="note__header__icons">
+            <img
+              src="./assets/images/8666681_edit_icon.svg"
+              alt="edit icon"
+              class="note__header__edit"
+              data-id = "${note.id}" 
+            />
+            <img
+              src="./assets/images/icons8-trash.svg"
+              alt=""
+              class="note__header__trash"
+              data-id = "${note.id}"
+             />
+          </div>
         </div>
 
         <div class="note__text">
@@ -64,8 +89,7 @@ export default class Ui {
       this.descriptionValue = e.target.value; // Updating the description variable
     });
 
-    const addBtn = this.root.querySelector(".notes-modal__buttons__add"); // Getting the add buttun in the modal
-    addBtn.addEventListener("click", this.createNewNote.bind(this));
+    this.root.querySelector(".search-bar").value = "";
   }
 
   createNewNote(e) {
@@ -80,8 +104,8 @@ export default class Ui {
     };
 
     this.notes.push(newNote); // Adding the note to the array
+
     this.saveNotes(); // Saving the Note
-    this.addToDom(this.notes); // Adding the note to the dom
 
     this.closeTheAddModal();
   }
@@ -100,13 +124,36 @@ export default class Ui {
     this.root.querySelector(".adding-notes-modal").style.display = "none"; //Adding a block view to pop up the modal
   }
 
+  deleteNote(id) {
+    const allNotes = this.notes;
+    this.notes = allNotes.filter((note) => note.id !== id); // Filtering the notes
+    this.saveNotes(); // Saving the notes
+    this.addToDom(this.notes); // Updating the DOM
+  }
+
+  editNote() {}
+
+  searchNote() {
+    const searchBar = this.root.querySelector(".search-bar");
+    searchBar.addEventListener("input", (e) => {
+      const target = e.target.value;
+      const filteredNotes = this.notes.filter((note) => {
+        return note.title.includes(target);
+      });
+      this.addToDom(filteredNotes);
+    });
+  }
+
   saveNotes() {
     // Sorting the Data
+
     this.notes.sort((a, b) =>
       new Date(a.updated) < new Date(b.updated) ? 1 : -1
     );
 
     // Saving the Data
     this.saveDataToStorage(this.notes);
+
+    this.addToDom(this.notes); // Adding the note to the dom
   }
 }

@@ -60,7 +60,7 @@ p {
 }
 
 input,
-a {
+a, button{
   font-size: 1rem;
 }
 
@@ -154,6 +154,9 @@ a {
   padding: 1rem;
   background-color: var(--color-notes-background);
   border-radius: 5px;
+  overflow: auto;
+  overflow-wrap: break-word;
+  hyphens: auto;
   display: flex;
   flex-direction: column;
 }
@@ -175,11 +178,23 @@ a {
   font-size: 1rem;
 }
 
+.note__header__icons {
+  display: flex;
+}
+
 .note__header__edit {
   cursor: pointer;
   padding: 0.1rem;
   width: 20px;
   height: 20px;
+}
+
+.note__header__trash {
+  margin-left: 0.7rem;
+  cursor: pointer;
+  padding: 0.1rem;
+  width: 21px;
+  height: 21px;
 }
 
 .note__text h2 {
@@ -211,6 +226,11 @@ a {
     padding: 0.1rem;
     width: 25px;
     height: 25px;
+  }
+
+  .note__header__trash {
+    width: 26px;
+    height: 26px;
   }
 }
 
@@ -260,7 +280,7 @@ a {
   height: 100vh;
 }
 
-.notes-modal__main__title{
+.notes-modal__main__title {
   font-size: 1rem;
   font-weight: 600;
   padding: 0.5rem;
@@ -294,7 +314,7 @@ a {
   font-size: 1rem;
 }
 
-.notes-modal__buttons{
+.notes-modal__buttons {
   display: flex;
   justify-content: end;
 }
@@ -308,7 +328,7 @@ a {
   border-radius: 5px;
 }
 
-.notes-modal__buttons__cancel{
+.notes-modal__buttons__cancel {
   color: var(--color-background);
   background-color: rgb(247, 75, 89);
 }

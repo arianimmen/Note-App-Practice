@@ -23,7 +23,7 @@
           <svg class="icon">
             <use xlink:href="./assets/images/sprites.svg#search-grey"></use>
           </svg>
-          <input type="text" placeholder="Search" />
+          <input type="text" placeholder="Search" class="search-bar"/>
         </form>
       </div>
     </header>
@@ -37,11 +37,18 @@
             <div class="note__date__icon">X</div>
             <p>28 May</p>
           </div>
-          <img
-            src="./assets/images/8666681_edit_icon.svg"
-            alt="edit icon"
-            class="note__header__edit"
-          />
+          <div class="note__header__icons">
+            <img
+              src="./assets/images/8666681_edit_icon.svg"
+              alt="edit icon"
+              class="note__header__edit"
+            />
+            <img
+              src="./assets/images/icons8-trash.svg"
+              alt=""
+              class="note__header__trash"
+            />
+          </div>
         </div>
 
         <div class="note__text">
@@ -64,8 +71,8 @@
       <div class="notes-modal__main">
         <div class="notes-modal__main__title">Add Note</div>
         <form>
-          <input type="text" placeholder="Title" class="notes-modal-title"/>
-          <input type="text" class="notes-modal-description"/>
+          <input type="text" placeholder="Title" class="notes-modal-title" />
+          <input type="text" class="notes-modal-description" />
           <div class="notes-modal__buttons">
             <button type="submit" class="notes-modal__buttons__add">Add</button>
             <button class="notes-modal__buttons__cancel">Cancel</button>
