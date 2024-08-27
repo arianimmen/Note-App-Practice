@@ -58,19 +58,30 @@
       </div> -->
     </section>
 
-    <!---------------------------- Adding Note --------------------------------->
+    <!----------------------------- Adding Note Modal --------------------------------->
+    <!-- todo: Add a container -->
+    <section class="adding-notes-modal">
+      <div class="notes-modal__main">
+        <div class="notes-modal__main__title">Add Note</div>
+        <form>
+          <input type="text" placeholder="Title" class="notes-modal-title"/>
+          <input type="text" class="notes-modal-description"/>
+          <div class="notes-modal__buttons">
+            <button type="submit" class="notes-modal__buttons__add">Add</button>
+            <button class="notes-modal__buttons__cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!---------------------------- Adding Note Button --------------------------------->
     <section class="adding-notes-btn container">
-
-      <img src="/assets/images/4115237_add_plus_icon.svg" alt="" class="add__btn">
-
-      <!-- <div class="add__btn">
-        <svg class="icon">
-          <use
-            xlink:href="./assets/images/sprites.svg#plus-light"
-            class="add__btn__plus"
-          ></use>
-        </svg>
-      </div> -->
+      <!-- todo: fix to the view port -->
+      <img
+        src="/assets/images/4115237_add_plus_icon.svg"
+        alt=""
+        class="add__btn"
+      />
     </section>
 
     <script src="./js/app.js" type="module"></script>

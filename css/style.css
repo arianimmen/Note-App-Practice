@@ -131,11 +131,12 @@ a {
 @media screen and (min-width: 1000px) {
   .header__bottom .icon {
     width: 30px;
-    height: 50px;
+    height: 60px;
     padding: 4px 4px 4px 10px;
   }
 
   .header__bottom input {
+    font-size: 1.3rem;
     flex-grow: 1;
     padding: 1rem 0.5rem;
   }
@@ -246,4 +247,68 @@ a {
     height: 80px;
     bottom: 50px;
   }
+}
+
+/* *--------------------------- Adding Note Modal ------------------------------*  */
+.adding-notes-modal {
+  display: none;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.213);
+  width: 100%;
+  height: 100vh;
+}
+
+.notes-modal__main__title{
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  color: var(--color-addingBtn);
+}
+
+.notes-modal__main {
+  position: relative;
+  padding: 1.5rem;
+  top: 20vh;
+  margin: 0 auto;
+  width: 70vw;
+  border-radius: 5px;
+  background-color: var(--color-background);
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-modal__main form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.notes-modal__main form input {
+  margin-bottom: 1rem;
+  border: 0.1px solid #bfbfbf88;
+  border-radius: 5px;
+  outline: none;
+  padding: 1rem;
+  font-size: 1rem;
+}
+
+.notes-modal__buttons{
+  display: flex;
+  justify-content: end;
+}
+
+.notes-modal__buttons button {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  cursor: pointer;
+  outline: none;
+  border: 0;
+  border-radius: 5px;
+}
+
+.notes-modal__buttons__cancel{
+  color: var(--color-background);
+  background-color: rgb(247, 75, 89);
 }
