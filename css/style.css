@@ -383,10 +383,6 @@ button {
   flex-direction: column;
 }
 
-.notes-modal__buttons__add {
-  background-color: var(--color-notes-background);
-}
-
 .notes-modal__main form input,
 textarea {
   color: var(--color-fonts);
@@ -423,7 +419,11 @@ textarea {
   cursor: pointer;
 }
 
-.notes-modal__buttons__cancel {
+.notes-modal__buttons__add {
   color: white;
   background-color: rgb(247, 75, 89);
+}
+
+.notes-modal__buttons__cancel {
+  background-color: var(--color-notes-background);
 }
