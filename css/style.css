@@ -151,6 +151,36 @@ button {
   border-radius: 0 5px 5px 0;
   outline: none;
 }
+
+/* * -- Dark and Light mode switch -- * */
+
+.header__icon {
+  display: flex;
+  align-items: center;
+}
+
+.header__icon p {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.header__icon__toggle {
+  display: flex;
+  width: 40px;
+  height: 20px;
+  background-color: var(--color-notes-background);
+  border-radius: 22px;
+  cursor: pointer;
+}
+
+.toggle__circle {
+  width: 20px;
+  height: 20px;
+  background-color: #636363;
+  border-radius: 100%;
+  transition: all 0.2s ease-out;
+}
+
 @media screen and (min-width: 1000px) {
   .header__bottom .icon {
     width: 30px;
@@ -162,6 +192,10 @@ button {
     font-size: 1.3rem;
     flex-grow: 1;
     padding: 1rem 0.5rem;
+  }
+
+  .header {
+    padding-top: 3rem;
   }
 }
 

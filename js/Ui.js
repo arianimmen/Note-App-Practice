@@ -259,11 +259,13 @@ export default class Ui {
     };
 
     this.toggle = 0; // Setting a toggle for checking the light/dark mode
+    const toggle_circle = this.root.querySelector(".toggle__circle");
 
     toggle.addEventListener("click", () => {
       if (this.toggle == 0) {
         this.toggle = 1; // Changing the toggle
-        changeColorToDark(newVariables); // Changing to dark mode
+
+        changeColorToDark(newVariables, toggle_circle); // Changing to dark mode
       } else {
         this.toggle = 0; // Changing the toggle
         changeColorToLight(originalVariables); // Changing to Light mode
@@ -279,9 +281,11 @@ export default class Ui {
         ".icon { filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(190deg) brightness(104%) contrast(102%); }",
         sheet.cssRules.length
       );
+
+      toggle_circle.style.marginLeft = "20px";
     }
 
-    function changeColorToLight(css) {
+    function changeColorToLight(css, root) {
       for (const [key, value] of Object.entries(css)) {
         document.documentElement.style.setProperty(`${key}`, `${value}`);
       }
@@ -290,6 +294,8 @@ export default class Ui {
         ".icon { filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(268deg) brightness(112%) contrast(107%); }",
         sheet.cssRules.length
       );
+
+      toggle_circle.style.marginLeft = "0px";
     }
   }
 
