@@ -46,6 +46,10 @@ input {
   --color-fonts: #000000;
   --color-notes-background: #f3f5f8;
   --color-addingBtn: #5f5ac9;
+
+  --color-modalBack: #f3f5f8;
+
+  /* --color-modalBack: #272727; */
 }
 
 /* *------------------ Typography -------------------* */
@@ -112,6 +116,9 @@ button {
   width: 25px;
   height: 25px;
   margin-left: 4rem;
+}
+
+.header__top .header__icon svg:hover {
   cursor: pointer;
 }
 
@@ -122,11 +129,14 @@ button {
 }
 
 .header__bottom .icon {
-  cursor: pointer;
   width: 25px;
   padding: 4px 4px 4px 8px;
   height: 40px;
   border-radius: 5px 0 0 5px;
+}
+
+.header__bottom .icon:hover {
+  cursor: pointer;
 }
 
 .header__bottom form {
@@ -205,18 +215,24 @@ button {
 }
 
 .note__header__edit {
-  cursor: pointer;
   padding: 0.1rem;
   width: 20px;
   height: 20px;
 }
 
+.note__header__edit:hover {
+  cursor: pointer;
+}
+
 .note__header__trash {
   margin-left: 0.7rem;
-  cursor: pointer;
   padding: 0.1rem;
   width: 21px;
   height: 21px;
+}
+
+.note__header__trash:hover {
+  cursor: pointer;
 }
 
 .note__text h2 {
@@ -264,7 +280,6 @@ button {
 }
 
 .add__btn {
-  cursor: pointer;
   padding: 0.5rem;
   width: 60px;
   height: 60px;
@@ -272,6 +287,10 @@ button {
   background-color: var(--color-addingBtn);
   position: fixed;
   bottom: 30px;
+}
+
+.add__btn:hover {
+  cursor: pointer;
 }
 
 @media screen and (min-width: 500px) {
@@ -318,7 +337,7 @@ button {
   margin: 0 auto;
   width: 70vw;
   border-radius: 5px;
-  background-color: var(--color-background);
+  background-color: var(--color-modalBack);
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 30px #35353543;
@@ -361,10 +380,13 @@ textarea {
 .notes-modal__buttons button {
   padding: 0.5rem;
   margin: 0.5rem;
-  cursor: pointer;
   outline: none;
   border: 0;
   border-radius: 5px;
+}
+
+.notes-modal__buttons button:hover {
+  cursor: pointer;
 }
 
 .notes-modal__buttons__cancel {

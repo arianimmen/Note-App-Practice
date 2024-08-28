@@ -190,6 +190,7 @@ export default class Ui {
     this.root.querySelector(".notes-modal-description").value = ""; // Deleting the previous the input
 
     this.root.querySelector(".adding-notes-modal").style.display = "none"; //Adding a block view to pop up the modal
+    this.id = 0; // Reseting the ID
   }
 
   deleteNote(id) {
@@ -247,39 +248,48 @@ export default class Ui {
       "--color-background": "#fff",
       "--color-fonts": " #000000",
       "--color-notes-background": "#f3f5f8",
-      " --color-addingBtn": " #5f5ac9",
+      "--color-modalBack": "#f3f5f8",
     };
 
     const newVariables = {
       "--color-background": "#161615",
       "--color-fonts": "#fff",
       "--color-notes-background": "#1F1F1F",
+      "--color-modalBack": "#272727",
     };
 
-    this.toggle = 0;
+    this.toggle = 0; // Setting a toggle for checking the light/dark mode
 
     toggle.addEventListener("click", () => {
       if (this.toggle == 0) {
-        changeColor(newVariables);
-        this.toggel = 1;
-        const sheet = document.styleSheets[0];
-        sheet.insertRule(
-          ".icon { filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(190deg) brightness(104%) contrast(102%); }",
-          sheet.cssRules.length
-        );
-        return 1;
+        this.toggle = 1; // Changing the toggle
+        changeColorToDark(newVariables); // Changing to dark mode
+      } else {
+        this.toggle = 0; // Changing the toggle
+        changeColorToLight(originalVariables); // Changing to Light mode
       }
-
-      changeColor(originalVariables);
-      this.toggel = 0;
-      this.root.querySelector(".icon").style.filter =
-        "invert(0%) sepia(100%) saturate(0%) hue-rotate(268deg) brightness(112%) contrast(107%);";
     });
 
-    function changeColor(css) {
+    function changeColorToDark(css) {
       for (const [key, value] of Object.entries(css)) {
         document.documentElement.style.setProperty(`${key}`, `${value}`);
       }
+      const sheet = document.styleSheets[0];
+      sheet.insertRule(
+        ".icon { filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(190deg) brightness(104%) contrast(102%); }",
+        sheet.cssRules.length
+      );
+    }
+
+    function changeColorToLight(css) {
+      for (const [key, value] of Object.entries(css)) {
+        document.documentElement.style.setProperty(`${key}`, `${value}`);
+      }
+      const sheet = document.styleSheets[0];
+      sheet.insertRule(
+        ".icon { filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(268deg) brightness(112%) contrast(107%); }",
+        sheet.cssRules.length
+      );
     }
   }
 
