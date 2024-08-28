@@ -28,6 +28,17 @@
   }
 }
 
+body {
+  background-color: var(--color-background);
+  color: var(--color-fonts);
+}
+
+button,
+a,
+input {
+  color: var(--color-fonts);
+}
+
 /* *--------------------- Root ---------------------* */
 
 :root {
@@ -60,7 +71,8 @@ p {
 }
 
 input,
-a, button{
+a,
+button {
   font-size: 1rem;
 }
 
@@ -105,11 +117,12 @@ a, button{
 
 .header__bottom form {
   display: flex;
+  background-color: var(--color-notes-background);
+  border-radius: 5px;
 }
 
 .header__bottom .icon {
   cursor: pointer;
-  background-color: var(--color-notes-background);
   width: 25px;
   padding: 4px 4px 4px 8px;
   height: 40px;
@@ -172,10 +185,19 @@ a, button{
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
+  margin-right: 0.5rem;
 }
 
 .note__header__date p {
   font-size: 1rem;
+}
+
+.note__date__icon {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-addingBtn);
+  border-radius: 100%;
+  margin-right: 0.5rem;
 }
 
 .note__header__icons {
@@ -207,7 +229,7 @@ a, button{
   justify-content: end;
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 555px) {
   .notes-container {
     grid-template-columns: repeat(2, 1fr);
     row-gap: 1.5rem;
@@ -248,7 +270,7 @@ a, button{
   height: 60px;
   border-radius: 100%;
   background-color: var(--color-addingBtn);
-  position: absolute;
+  position: fixed;
   bottom: 30px;
 }
 
@@ -275,19 +297,21 @@ a, button{
   z-index: 2;
   position: fixed;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.213);
+  background-color: rgba(0, 0, 0, 0.089);
+  backdrop-filter: blur(2px);
   width: 100%;
   height: 100vh;
 }
 
 .notes-modal__main__title {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   padding: 0.5rem;
-  color: var(--color-addingBtn);
+  color: var(--color-fonts);
 }
 
 .notes-modal__main {
+  max-width: 800px;
   position: relative;
   padding: 1.5rem;
   top: 20vh;
@@ -297,6 +321,7 @@ a, button{
   background-color: var(--color-background);
   display: flex;
   flex-direction: column;
+  box-shadow: 0 0 30px #35353543;
 }
 
 .notes-modal__main form {
@@ -305,13 +330,27 @@ a, button{
   flex-direction: column;
 }
 
-.notes-modal__main form input {
+.notes-modal__buttons__add {
+  background-color: var(--color-notes-background);
+}
+
+.notes-modal__main form input,
+textarea {
+  color: var(--color-fonts);
   margin-bottom: 1rem;
   border: 0.1px solid #bfbfbf88;
   border-radius: 5px;
   outline: none;
   padding: 1rem;
   font-size: 1rem;
+  background-color: var(--color-notes-background);
+}
+
+.notes-modal__main textarea {
+  height: 150px;
+  flex-grow: 2;
+  resize: none;
+  width: 100%;
 }
 
 .notes-modal__buttons {
@@ -329,6 +368,6 @@ a, button{
 }
 
 .notes-modal__buttons__cancel {
-  color: var(--color-background);
+  color: white;
   background-color: rgb(247, 75, 89);
 }

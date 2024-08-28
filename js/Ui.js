@@ -5,12 +5,29 @@ export default class Ui {
     this.root = root; // Setting the rout
     this.addToDom(this.notes); // Adding notes to the DOMs
     this.searchNote();
+    this.togel();
+
+    //*--------------------------------  Setting the default values --------------------------------------------*
+
+    this.id = 0; // ID 0 means it is a unique and new id and doesn't exist
+    this.descriptionValue = ""; // This value will use in creating new note title and description
+    this.titleValue = ""; // This value will use in creating new note title and description
+
+    // --------------------------------------------------------------------------------------------------------
 
     const addBtn = this.root.querySelector(".adding-notes-btn"); // Selecting the add button (purple button)
     addBtn.addEventListener("click", this.addToNotes.bind(this));
 
     const addBtnModal = this.root.querySelector(".notes-modal__buttons__add"); // Getting the add buttun in the modal
     addBtnModal.addEventListener("click", this.createNewNote.bind(this));
+
+    const closeBtnModal = this.root.querySelector(
+      ".notes-modal__buttons__cancel"
+    );
+    closeBtnModal.addEventListener("click", (e) => {
+      e.preventDefault();
+      this.closeTheAddModal();
+    });
   }
 
   addToDom(data) {
@@ -29,6 +46,15 @@ export default class Ui {
         this.deleteNote(id);
       });
     });
+
+    const editBtns = [...this.root.querySelectorAll(".note__header__edit")];
+    editBtns.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        const id = Number(e.target.dataset.id); // Getting the trash icon id
+        this.id = id;
+        this.addToNotes();
+      });
+    });
   }
 
   _createNoteHTML(note) {
@@ -37,7 +63,7 @@ export default class Ui {
       <div class="note__self">
         <div class="note__header">
           <div class="note__header__date">
-            <div class="note__date__icon">X</div>
+            <div class="note__date__icon"></div>
             <p>${new Date(note.updated).toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
@@ -48,13 +74,13 @@ export default class Ui {
             <img
               src="./assets/images/8666681_edit_icon.svg"
               alt="edit icon"
-              class="note__header__edit"
+              class="note__header__edit icon"
               data-id = "${note.id}" 
             />
             <img
               src="./assets/images/icons8-trash.svg"
               alt=""
-              class="note__header__trash"
+              class="note__header__trash icon"
               data-id = "${note.id}"
              />
           </div>
@@ -68,7 +94,7 @@ export default class Ui {
         </div>
 
         <div class="note__update">
-          <p>1h ago</p>
+          <p>${this.lastUpdate(note.updated)}</p>
         </div>
       </div>
     `;
@@ -90,28 +116,70 @@ export default class Ui {
     });
 
     this.root.querySelector(".search-bar").value = "";
+    this.addToDom(this.notes);
   }
 
   createNewNote(e) {
+    let existed = 0;
     e.preventDefault();
 
-    const newNote = {
-      // Making a new Note Object
-      id: new Date().getTime(),
-      title: this.titleValue,
-      description: this.descriptionValue,
-      updated: new Date().toISOString(),
-    };
+    // Checking if the note exist
+    this.notes.forEach((note) => {
+      if (note.id == this.id) {
+        note.title = this.titleValue.trim();
+        note.description = this.descriptionValue.trim();
+        note.updated = new Date().toISOString();
 
-    this.notes.push(newNote); // Adding the note to the array
+        this.id = 0; // Removing the id from our local id
+        this.saveNotes(); // Saving the Note
+        this.closeTheAddModal();
+        existed = 1;
+      }
+    });
 
-    this.saveNotes(); // Saving the Note
+    if (!existed) {
+      const newNote = {
+        // Making a new Note Object
+        id: new Date().getTime(),
+        title: this.titleValue.trim(),
+        description: this.descriptionValue.trim(),
+        updated: new Date().toISOString(),
+      };
 
-    this.closeTheAddModal();
+      this.notes.push(newNote); // Adding the note to the array
+
+      this.saveNotes(); // Saving the Note
+
+      this.closeTheAddModal();
+    }
   }
 
   openTheAddModal() {
-    this.root.querySelector(".adding-notes-modal").style.display = "block"; //Adding a block view to pop up the modal
+    const modal = this.root.querySelector(".adding-notes-modal");
+    modal.style.display = "block"; //Adding a block view to pop up the modal
+
+    // Checking if the user click outside of our modal so we can close it
+    this.root.addEventListener("click", (e) => {
+      if (e.target.classList.contains("adding-notes-modal")) {
+        this.closeTheAddModal();
+      }
+    });
+
+    // Checking if the id exist
+    if (this.id != 0) {
+      this.notes.forEach((note) => {
+        if (note.id == this.id) {
+          // Updating the input in modal based on the existed noet
+          this.root.querySelector(".notes-modal-title").value = note.title;
+          this.root.querySelector(".notes-modal-description").value =
+            note.description;
+
+          // Updating the local title and description Value
+          this.titleValue = note.title;
+          this.descriptionValue = note.description;
+        }
+      });
+    }
   }
 
   closeTheAddModal() {
@@ -131,17 +199,88 @@ export default class Ui {
     this.addToDom(this.notes); // Updating the DOM
   }
 
-  editNote() {}
-
   searchNote() {
     const searchBar = this.root.querySelector(".search-bar");
     searchBar.addEventListener("input", (e) => {
-      const target = e.target.value;
+      const target = e.target.value.trim().toLowerCase(); // Getting the value from the search bar
+
       const filteredNotes = this.notes.filter((note) => {
-        return note.title.includes(target);
+        return note.title.trim().toLowerCase().includes(target); // Checking if the text exist in our title
       });
       this.addToDom(filteredNotes);
     });
+  }
+
+  lastUpdate(inputDate) {
+    const date = new Date(inputDate);
+    const now = new Date();
+
+    const seconds = Math.floor((now - date) / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const weeks = Math.floor(days / 7);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(days / 365);
+
+    if (seconds < 60) {
+      return `${seconds} second${seconds !== 1 ? "s" : ""} ago`;
+    } else if (minutes < 60) {
+      return `${minutes} minute${minutes !== 1 ? "s" : ""} ago`;
+    } else if (hours < 24) {
+      return `${hours} hour${hours !== 1 ? "s" : ""} ago`;
+    } else if (days < 7) {
+      return `${days} day${days !== 1 ? "s" : ""} ago`;
+    } else if (weeks < 4) {
+      return `${weeks} week${weeks !== 1 ? "s" : ""} ago`;
+    } else if (months < 12) {
+      return `${months} month${months !== 1 ? "s" : ""} ago`;
+    } else {
+      return `${years} year${years !== 1 ? "s" : ""} ago`;
+    }
+  }
+
+  togel() {
+    const toggle = this.root.querySelector(".toggle");
+
+    const originalVariables = {
+      "--color-background": "#fff",
+      "--color-fonts": " #000000",
+      "--color-notes-background": "#f3f5f8",
+      " --color-addingBtn": " #5f5ac9",
+    };
+
+    const newVariables = {
+      "--color-background": "#161615",
+      "--color-fonts": "#fff",
+      "--color-notes-background": "#1F1F1F",
+    };
+
+    this.toggle = 0;
+
+    toggle.addEventListener("click", () => {
+      if (this.toggle == 0) {
+        changeColor(newVariables);
+        this.toggel = 1;
+        const sheet = document.styleSheets[0];
+        sheet.insertRule(
+          ".icon { filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(190deg) brightness(104%) contrast(102%); }",
+          sheet.cssRules.length
+        );
+        return 1;
+      }
+
+      changeColor(originalVariables);
+      this.toggel = 0;
+      this.root.querySelector(".icon").style.filter =
+        "invert(0%) sepia(100%) saturate(0%) hue-rotate(268deg) brightness(112%) contrast(107%);";
+    });
+
+    function changeColor(css) {
+      for (const [key, value] of Object.entries(css)) {
+        document.documentElement.style.setProperty(`${key}`, `${value}`);
+      }
+    }
   }
 
   saveNotes() {

@@ -110,6 +110,10 @@
     url("../assets/fonts/Sofia Pro Black Italic Az.woff") format("woff");
 }
 
-body {
+body,
+a,
+input,
+textarea,
+button {
   font-family: "Sofia Pro";
 }

@@ -13,17 +13,17 @@
       <div class="header__top">
         <h1 class="header__title">Hello, Notes</h1>
         <div class="header__icon">
-          <svg class="icon">
+          <svg class="icon toggle">
             <use xlink:href="./assets/images/sprites.svg#setting-black"></use>
           </svg>
         </div>
       </div>
       <div class="header__bottom">
         <form>
-          <svg class="icon">
+          <svg class="icon searchIcon">
             <use xlink:href="./assets/images/sprites.svg#search-grey"></use>
           </svg>
-          <input type="text" placeholder="Search" class="search-bar"/>
+          <input type="text" placeholder="Search" class="search-bar" />
         </form>
       </div>
     </header>
@@ -72,7 +72,12 @@
         <div class="notes-modal__main__title">Add Note</div>
         <form>
           <input type="text" placeholder="Title" class="notes-modal-title" />
-          <input type="text" class="notes-modal-description" />
+          <textarea
+            name="textarea"
+            id="textarea"
+            placeholder="Description"
+            class="notes-modal-description"
+          ></textarea>
           <div class="notes-modal__buttons">
             <button type="submit" class="notes-modal__buttons__add">Add</button>
             <button class="notes-modal__buttons__cancel">Cancel</button>
@@ -80,10 +85,25 @@
         </form>
       </div>
     </section>
+    <!-- <div class="back__drop"></div> -->
+
+    <!-- --------------------------- Editting Note Modal --------------------------
+    <section class="adding-notes-modal Editting-notes-modal">
+      <div class="notes-modal__main">
+        <div class="notes-modal__main__title">Edit Note</div>
+        <form>
+          <input type="text" placeholder="Title" class="notes-modal-title" />
+          <input type="text" class="notes-modal-description" />
+          <div class="notes-modal__buttons">
+            <button type="submit" class="notes-modal__buttons__add">Add</button>
+            <button class="notes-modal__buttons__cancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section> -->
 
     <!---------------------------- Adding Note Button --------------------------------->
     <section class="adding-notes-btn container">
-      <!-- todo: fix to the view port -->
       <img
         src="/assets/images/4115237_add_plus_icon.svg"
         alt=""
