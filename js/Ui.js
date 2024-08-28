@@ -4,12 +4,15 @@ export default class Ui {
     this.notes = data; // Getting the data and storing it in notes
     this.root = root; // Setting the rout
     this.addToDom(this.notes); // Adding notes to the DOMs
-    this.searchNote();
-    this.togel();
+    this.searchNote(); // Calling the searchNote Method (activating the search bar)
+    this.togel(); // Activating the toggle button
 
     //*--------------------------------  Setting the default values --------------------------------------------*
 
-    this.id = 0; // ID 0 means it is a unique and new id and doesn't exist
+    // ID 0 means it is a unique and new id and doesn't exist, in the programm when we want to edit a note,
+    // we add its value in here, so localy in different method we can use the id
+    this.id = 0;
+
     this.descriptionValue = ""; // This value will use in creating new note title and description
     this.titleValue = ""; // This value will use in creating new note title and description
 
@@ -32,6 +35,7 @@ export default class Ui {
 
   addToDom(data) {
     let result = "";
+
     // Adding data(notes) in to the DOM
     data.forEach((note) => {
       const note_html = this._createNoteHTML(note); //Creating each note html with _createNoteHtml method
@@ -43,7 +47,7 @@ export default class Ui {
     trashIcons.forEach((item) => {
       item.addEventListener("click", (e) => {
         const id = Number(e.target.dataset.id); // Getting the trash icon id
-        this.deleteNote(id);
+        this.deleteNote(id); // Calling the delete function when the user click on the trash icon
       });
     });
 
@@ -51,8 +55,8 @@ export default class Ui {
     editBtns.forEach((item) => {
       item.addEventListener("click", (e) => {
         const id = Number(e.target.dataset.id); // Getting the trash icon id
-        this.id = id;
-        this.addToNotes();
+        this.id = id; // Setting the local ID to be our selected note ID
+        this.addToNotes(); //Updating the DOM
       });
     });
   }
@@ -108,20 +112,21 @@ export default class Ui {
       this.titleValue = e.target.value; // Updating the title variable
     });
 
+    //Selecting the description input
     const descriptionInput = this.root.querySelector(
       ".notes-modal-description"
-    ); //Selecting the description input
+    );
     descriptionInput.addEventListener("input", (e) => {
       this.descriptionValue = e.target.value; // Updating the description variable
     });
 
-    this.root.querySelector(".search-bar").value = "";
-    this.addToDom(this.notes);
+    this.root.querySelector(".search-bar").value = ""; // Making the search bar value to be empty
+    this.addToDom(this.notes); // Updating the DOM
   }
 
   createNewNote(e) {
-    let existed = 0;
-    e.preventDefault();
+    let existed = 0; // Defaul value of exited note is 0 meaning note doens't exist
+    e.preventDefault(); // Prevent the refresh by js
 
     // Checking if the note exist
     this.notes.forEach((note) => {
@@ -131,15 +136,16 @@ export default class Ui {
         note.updated = new Date().toISOString();
 
         this.id = 0; // Removing the id from our local id
+        existed = 1; // Setting the exsited value to one so we know the note already exist
+
         this.saveNotes(); // Saving the Note
-        this.closeTheAddModal();
-        existed = 1;
+        this.closeTheAddModal(); // Closing the Modal
       }
     });
 
     if (!existed) {
+      // Making a new Note Object
       const newNote = {
-        // Making a new Note Object
         id: new Date().getTime(),
         title: this.titleValue.trim(),
         description: this.descriptionValue.trim(),
@@ -150,7 +156,7 @@ export default class Ui {
 
       this.saveNotes(); // Saving the Note
 
-      this.closeTheAddModal();
+      this.closeTheAddModal(); // Closing the Modal
     }
   }
 
@@ -161,7 +167,7 @@ export default class Ui {
     // Checking if the user click outside of our modal so we can close it
     this.root.addEventListener("click", (e) => {
       if (e.target.classList.contains("adding-notes-modal")) {
-        this.closeTheAddModal();
+        this.closeTheAddModal(); // Closing the Modal
       }
     });
 
@@ -169,7 +175,7 @@ export default class Ui {
     if (this.id != 0) {
       this.notes.forEach((note) => {
         if (note.id == this.id) {
-          // Updating the input in modal based on the existed noet
+          // Updating the input in modal based on the existed note
           this.root.querySelector(".notes-modal-title").value = note.title;
           this.root.querySelector(".notes-modal-description").value =
             note.description;
@@ -185,37 +191,41 @@ export default class Ui {
   closeTheAddModal() {
     this.titleValue = ""; // Setting the defalut titleValue to nothing
     this.descriptionValue = ""; // Setting the defalut Description Value to nothing
+    this.id = 0; // Reseting the ID
 
     this.root.querySelector(".notes-modal-title").value = ""; // Deleting the previous the input
     this.root.querySelector(".notes-modal-description").value = ""; // Deleting the previous the input
 
     this.root.querySelector(".adding-notes-modal").style.display = "none"; //Adding a block view to pop up the modal
-    this.id = 0; // Reseting the ID
   }
 
   deleteNote(id) {
     const allNotes = this.notes;
+
     this.notes = allNotes.filter((note) => note.id !== id); // Filtering the notes
     this.saveNotes(); // Saving the notes
     this.addToDom(this.notes); // Updating the DOM
   }
 
   searchNote() {
-    const searchBar = this.root.querySelector(".search-bar");
+    const searchBar = this.root.querySelector(".search-bar"); // Getting the search bar element
+
     searchBar.addEventListener("input", (e) => {
       const target = e.target.value.trim().toLowerCase(); // Getting the value from the search bar
 
       const filteredNotes = this.notes.filter((note) => {
         return note.title.trim().toLowerCase().includes(target); // Checking if the text exist in our title
       });
-      this.addToDom(filteredNotes);
+
+      this.addToDom(filteredNotes); // Updating the DOMN
     });
   }
 
   lastUpdate(inputDate) {
-    const date = new Date(inputDate);
-    const now = new Date();
+    const date = new Date(inputDate); // Getting the note time
+    const now = new Date(); // Getting the current time
 
+    // Checking what was the last edit time ex: 2sec ago, 1 hour ago and .........
     const seconds = Math.floor((now - date) / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
@@ -242,8 +252,10 @@ export default class Ui {
   }
 
   togel() {
-    const toggle = this.root.querySelector(".toggle");
+    const toggle = this.root.querySelector(".toggle"); // Getting the toggle button
+    const toggle_circle = this.root.querySelector(".toggle__circle");
 
+    // Css root variables for light theme
     const originalVariables = {
       "--color-background": "#fff",
       "--color-fonts": " #000000",
@@ -251,6 +263,7 @@ export default class Ui {
       "--color-modalBack": "#f3f5f8",
     };
 
+    // Css root variables for dark themn
     const newVariables = {
       "--color-background": "#161615",
       "--color-fonts": "#fff",
@@ -259,10 +272,9 @@ export default class Ui {
     };
 
     this.toggle = 0; // Setting a toggle for checking the light/dark mode
-    const toggle_circle = this.root.querySelector(".toggle__circle");
 
     toggle.addEventListener("click", () => {
-      if (this.toggle == 0) {
+      if (this.toggle === 0) {
         this.toggle = 1; // Changing the toggle
 
         changeColorToDark(newVariables, toggle_circle); // Changing to dark mode
@@ -273,29 +285,35 @@ export default class Ui {
     });
 
     function changeColorToDark(css) {
+      // Changing the root colors
       for (const [key, value] of Object.entries(css)) {
         document.documentElement.style.setProperty(`${key}`, `${value}`);
       }
+
+      // Changing the icons color
       const sheet = document.styleSheets[0];
       sheet.insertRule(
         ".icon { filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(190deg) brightness(104%) contrast(102%); }",
         sheet.cssRules.length
       );
 
-      toggle_circle.style.marginLeft = "20px";
+      toggle_circle.style.marginLeft = "20px"; // Makes the animation of the toggle possible
     }
 
     function changeColorToLight(css, root) {
+      // Changing the root colors
       for (const [key, value] of Object.entries(css)) {
         document.documentElement.style.setProperty(`${key}`, `${value}`);
       }
+
+      // Changing the icons color
       const sheet = document.styleSheets[0];
       sheet.insertRule(
         ".icon { filter: invert(0%) sepia(100%) saturate(0%) hue-rotate(268deg) brightness(112%) contrast(107%); }",
         sheet.cssRules.length
       );
 
-      toggle_circle.style.marginLeft = "0px";
+      toggle_circle.style.marginLeft = "0px"; // Makes the animation of the toggle possible
     }
   }
 
