@@ -5,7 +5,7 @@ export default class Ui {
     this.root = root; // Setting the rout
     this.addToDom(this.notes); // Adding notes to the DOMs
     this.searchNote(); // Calling the searchNote Method (activating the search bar)
-    this.togel(); // Activating the toggle button
+    this.toggle(); // Activating the toggle button
 
     //*--------------------------------  Setting the default values --------------------------------------------*
 
@@ -251,7 +251,7 @@ export default class Ui {
     }
   }
 
-  togel() {
+  toggle() {
     const toggle = this.root.querySelector(".toggle"); // Getting the toggle button
     const toggle_circle = this.root.querySelector(".toggle__circle");
 
