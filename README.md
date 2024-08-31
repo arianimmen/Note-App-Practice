@@ -25,6 +25,14 @@ A responsive Note-Taking Web Application that allows users to create, edit, dele
 
 Check out the live version of the app [here](https://arianimmen.github.io/Note-App-Practice/).
 
+## Pictures
+
+![Screenshot from 2024-08-31 19-43-25](https://github.com/user-attachments/assets/ff41ab7a-15d7-4510-9f2d-16d7b4fff508)
+![Screenshot from 2024-08-31 19-43-30](https://github.com/user-attachments/assets/389dab26-4e79-4815-a407-f8265a059364)
+![Screenshot from 2024-08-31 19-43-40](https://github.com/user-attachments/assets/ab174201-fe56-467f-92ab-c5f769c2b650)
+![Screenshot from 2024-08-31 19-43-46](https://github.com/user-attachments/assets/1ceca2e7-5a24-43af-8554-d7d0b7895c11)
+
+
 ## 🛠️ Technologies Used
 
 - **HTML5**
