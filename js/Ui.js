@@ -2,7 +2,7 @@ export default class Ui {
   constructor(root, data, saveData) {
     this.saveDataToStorage = saveData;
     this.notes = data; // Getting the data and storing it in notes
-    this.root = root; // Setting the rout
+    this.root = root; // Setting the root
     this.addToDom(this.notes); // Adding notes to the DOMs
     this.searchNote(); // Calling the searchNote Method (activating the search bar)
     this.toggleAcitive(); // Activating the toggle button
